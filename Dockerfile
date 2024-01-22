@@ -16,7 +16,8 @@ WORKDIR /app
 
 RUN npm install prisma
 RUN npx prisma init
-COPY ./prisma/schema.prisma ./prisma/schema.prisma
+# 复制的是 provider 为 js 的配置文件，为了打包时无需 dart 环境
+COPY ./deploy/schema.prisma ./prisma/schema.prisma
 COPY ./.env ./.env
 RUN npx prisma generate
 

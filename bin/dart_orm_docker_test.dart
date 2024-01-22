@@ -7,6 +7,7 @@ void main(List<String> arguments) async {
     await client.$connect();
     final result = await client.user.findMany();
     print(result);
+    // see success means the connection is working
     print('success');
   } catch (e) {
     print(e);
