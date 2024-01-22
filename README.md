@@ -1,4 +1,4 @@
-# Dart ORM Docker Example
+# Dart ORM(Prisma Client Dart) Docker Example
 
 这是一个最小可用的 dart [orm 库](https://github.com/medz/prisma-dart) 打包为 Docker 镜像的示例。
 
