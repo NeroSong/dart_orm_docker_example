@@ -1,4 +1,4 @@
-FROM dart:stable AS b1
+FROM dart:stable AS build
 WORKDIR /app
 
 COPY pubspec.* ./
@@ -8,7 +8,7 @@ COPY . .
 
 RUN dart pub get --offline
 
-# Install Node.js LTS to builder
+# Install Node.js LTS to build prisma
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - &&\
     apt-get install -y nodejs
 
@@ -30,11 +30,11 @@ RUN FILES="libz.so libgcc_s.so libssl.so libcrypto.so"; \
 
 FROM scratch
 
-COPY --from=b1 /runtime /
-COPY --from=b1 /app/bin/server /app/bin/
-COPY --from=b1 /app/.env /app/.env
-COPY --from=b1 /app/db/test.db /app/db/test.db
-COPY --from=b1 /app/prisma-query-engine /app/prisma-query-engine
+COPY --from=build /runtime /
+COPY --from=build /app/bin/server /app/bin/
+COPY --from=build /app/.env /app/.env
+COPY --from=build /app/db/test.db /app/db/test.db
+COPY --from=build /app/prisma-query-engine /app/prisma-query-engine
 
 ENV TZ=Asia/Shanghai
 
